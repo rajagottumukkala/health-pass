@@ -13,6 +13,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+import logo from "./images/logo.png";
 
 import {
   checkIfWalletIsConnected,
@@ -77,7 +78,7 @@ function App() {
                 flexGrow={1}
               //sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
               >
-                <img src="./logo.png" />
+                <img src={logo} />
               </Typography>
 
               <ConnectWithMetaMaskButton setCurrentAccount={setCurrentAccount} />
@@ -86,7 +87,7 @@ function App() {
           </Container>
         </AppBar>
         {/* <NavBar disableGutters /> */}
-        <ConnectWithMetaMaskButton setCurrentAccount={setCurrentAccount} />
+        {/* <ConnectWithMetaMaskButton setCurrentAccount={setCurrentAccount} /> */}
         <Mint {...{ contractOwner, currentAccount, provider, contract }} />
       </Container>
     </React.Fragment>
