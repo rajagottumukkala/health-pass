@@ -1,5 +1,6 @@
 {
   "name": "health-pass",
+  "homepage": "https://rajagottumukkala.github.io/health-pass/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +10,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@usedapp/core": "^0.9.1",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-nft-gallery": "^0.6.1",
@@ -18,6 +20,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "npx hardhat test",
     "eject": "react-scripts eject"
