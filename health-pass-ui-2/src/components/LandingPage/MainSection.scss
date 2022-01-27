@@ -1,0 +1,22 @@
+.main-section-container {
+	// position: absolute;
+	// top: 50%;
+	// left: 50%;
+	// transform: translate(-50%, -50%);
+	// background-color: red;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	h1 {
+		font-size: 100px;
+		font-weight: 700;
+	}
+	p {
+		font-size: 20px;
+	}
+	button {
+		margin-top: 30px;
+	}
+}

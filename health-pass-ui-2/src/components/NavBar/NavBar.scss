@@ -1,0 +1,22 @@
+@import "../../imports/colors";
+
+.navbar-container {
+	height: 20%;
+	display: flex;
+	align-items: center;
+	.items {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		// padding-top: 2rem;
+		// padding-bottom: 2rem;
+		h2 {
+			font-size: 1.5rem;
+		}
+		img {
+			// height: 85px;
+			width: 180px;
+			height: auto;
+		}
+	}
+}

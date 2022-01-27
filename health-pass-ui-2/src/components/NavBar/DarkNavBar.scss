@@ -1,0 +1,13 @@
+@import "../../imports/colors";
+
+.navbar-container.dark {
+	background-color: $mainColor;
+	color: $secondColor;
+	h2 {
+		font-weight: 600;
+	}
+	img {
+		// width: 180px;
+		// height: auto;
+	}
+}

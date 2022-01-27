@@ -1,0 +1,30 @@
+@import "../../imports/colors";
+
+.main-section-container.connect-page {
+	height: 100%;
+	.rule-question {
+		display: flex;
+		align-items: center;
+		p {
+			color: $secondColor;
+			margin: 0;
+		}
+		img {
+			margin-left: 1rem;
+			width: 40px;
+			height: 40px;
+		}
+		margin-bottom: 1rem;
+	}
+	h1 {
+		background-color: rgba($color: $secondColor, $alpha: .38);
+		padding: 1rem 2rem;
+		border-radius: 15px;
+		margin: 0;
+	}
+}
+
+.overlay {
+	background-color: rgba(2, 2, 2, 0.38);
+	height: 80%;
+}
