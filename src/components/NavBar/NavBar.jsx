@@ -6,7 +6,7 @@ function NavBar() {
 		<div className="navbar-container">
 			<div className="container items">
 				<img src={LogoBlack} alt="" />
-				<a href="/connect" ><button className="main-btn">START HERE</button></a>
+				<a href="#/connect" ><button className="main-btn">START HERE</button></a>
 			</div>
 		</div>
 	);

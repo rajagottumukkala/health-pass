@@ -8,7 +8,7 @@ function DarkNavBar(props) {
 			<div className="container items">
 				<img src={LogoWhite} alt="" />
 				<h2>{props.text}</h2>
-				<a href={props.btnUrl}><button className="second-btn">{props.textBtn}</button></a>
+				<a href={"#/"+props.btnUrl}><button className="second-btn">{props.textBtn}</button></a>
 			</div>
 		</div>
 	);

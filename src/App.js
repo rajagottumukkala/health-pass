@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
+import { Route, Switch, Redirect, BrowserRouter as Router, HashRouter } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import ConnectWalletPage from "./pages/ConnectWalletPage";
 import MintNftPage from "./pages/MintNftPage";
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-    <Router>
+    <HashRouter>
       <Switch>
         <Route exact path="/">
           <LandingPage />
@@ -35,7 +35,7 @@ function App() {
           <Redirect to="/" />
         </Route>
       </Switch>
-    </Router>
+    </HashRouter>
 		</>
   
   );
