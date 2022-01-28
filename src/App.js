@@ -13,6 +13,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+
 import logo from "./images/logo.png";
 
 import {
@@ -20,6 +21,7 @@ import {
   getSignedContract,
   updateProviderAndContract,
 } from "./utils/common.js";
+import { Button } from "@mui/material";
 
 
 function App() {
@@ -81,7 +83,8 @@ function App() {
                 <img src={logo} />
               </Typography>
 
-              <ConnectWithMetaMaskButton setCurrentAccount={setCurrentAccount} />
+              {isMetamaskConnected && <Button variant="outlined" color="warning" onClick={()=> setCurrentAccount("")}>Disconnect</Button>}
+              {!isMetamaskConnected && <ConnectWithMetaMaskButton setCurrentAccount={setCurrentAccount} />}
 
             </Toolbar>
           </Container>
