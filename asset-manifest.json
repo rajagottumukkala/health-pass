@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/health-pass/static/css/main.43c86f1c.css",
-    "main.js": "/health-pass/static/js/main.13b7e91b.js",
+    "main.js": "/health-pass/static/js/main.1ef1c3e6.js",
     "index.html": "/health-pass/index.html",
     "main.43c86f1c.css.map": "/health-pass/static/css/main.43c86f1c.css.map",
-    "main.13b7e91b.js.map": "/health-pass/static/js/main.13b7e91b.js.map"
+    "main.1ef1c3e6.js.map": "/health-pass/static/js/main.1ef1c3e6.js.map"
   },
   "entrypoints": [
     "static/css/main.43c86f1c.css",
-    "static/js/main.13b7e91b.js"
+    "static/js/main.1ef1c3e6.js"
   ]
 }
