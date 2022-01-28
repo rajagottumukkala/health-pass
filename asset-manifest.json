@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/health-pass/static/css/main.50b6e871.css",
-    "main.js": "/health-pass/static/js/main.3708faa3.js",
+    "main.js": "/health-pass/static/js/main.9f5ddae7.js",
     "static/media/bg.jpg": "/health-pass/static/media/bg.e0f8af7d67d298fb8c8d.jpg",
     "static/media/NftBg2.png": "/health-pass/static/media/NftBg2.de2c19d7b7f788dafbb8.png",
     "static/media/NftBg3.png": "/health-pass/static/media/NftBg3.d95667b4def976607c07.png",
@@ -16,10 +16,10 @@
     "static/media/vaccination.png": "/health-pass/static/media/vaccination.af996c9d805798900d32.png",
     "index.html": "/health-pass/index.html",
     "main.50b6e871.css.map": "/health-pass/static/css/main.50b6e871.css.map",
-    "main.3708faa3.js.map": "/health-pass/static/js/main.3708faa3.js.map"
+    "main.9f5ddae7.js.map": "/health-pass/static/js/main.9f5ddae7.js.map"
   },
   "entrypoints": [
     "static/css/main.50b6e871.css",
-    "static/js/main.3708faa3.js"
+    "static/js/main.9f5ddae7.js"
   ]
 }
