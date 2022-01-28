@@ -1,11 +1,11 @@
 import DarkNavBar from "../components/NavBar/DarkNavBar";
-import MainSection from "../components/MintPage/MainSection";
+import MintMainSection from "../components/MintPage/MintMainSection";
 
 function MintNftPage() {
 	return (
 		<>
 			<DarkNavBar text="0x4dec...f642" textBtn="BACK" btnUrl="/" />
-			<MainSection />
+			<MintMainSection />
 		</>
 	);
 }
