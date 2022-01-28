@@ -1,0 +1,25 @@
+$mainColor: #000;
+$secondColor: #fff;
+$purpleColor: #4F5E8D;
+
+.main-btn,
+.second-btn {
+	height: 50px;
+	// width: 439px;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	font-weight: 600;
+	font-size: 20px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.main-btn {
+	color: $secondColor;
+	background-color: $mainColor;
+}
+
+.second-btn {
+	background-color: $purpleColor;
+	color: $secondColor;
+}
