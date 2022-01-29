@@ -78,7 +78,7 @@ export const getTokenCount = async (contract) => {
     }
 };
 
-export const mintNft = async (contract, contractOwner) => {
+export const mintNft = async (contract, contractOwner, proof) => {
     var dummyCertData = {
         category: "AA",
         country: "Germany",
@@ -90,7 +90,7 @@ export const mintNft = async (contract, contractOwner) => {
             return;
         }
 
-        const txn = await contract.awardCertificate(contractOwner,dummyCertData);
+        const txn = await contract.awardCertificate(contractOwner, dummyCertData);
         await txn.wait();
     } catch (error) {
         console.log(error);

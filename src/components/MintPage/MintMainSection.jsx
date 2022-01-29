@@ -1,10 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { mintNft } from "../../utils/common";
 import "react-toastify/dist/ReactToastify.css";
+import base45 from "base45";
+import pako from "pako";
+import { Cborwebtoken } from "@netnexus/node-cborwebtoken";
+import cbor from "cbor";
 import QuestionMark from "../../assets/QuestionMark.png"
+import QRScanner from "../QRScanner/QRScanner"
+import proof_valid_eu_green_certificate from '../../zokrates_green_certificate';
 
 export function MintMainSection({ provider, contract, contractOwner }) {
+	const [qrModal, setQrModal] = useState(false);
+
 	useEffect(() => {
 		if (!contract) {
 			return;
@@ -29,6 +37,46 @@ export function MintMainSection({ provider, contract, contractOwner }) {
 		);
 	};
 
+	function onScan(content) {
+		if (content.substring(0, 4) !== "HC1:") {
+			console.log("Not a vaccine passport: " + content)
+			return
+		}
+
+		const decoded_data = base45.decode(content.substring(4));
+		const compressed_bytes = new Uint8Array(decoded_data);
+
+		// returns Uint8Array by default
+		const raw_cbor = pako.inflate(compressed_bytes)
+		//const raw_cbor = pako.inflate(compressed_bytes, {to: "string"})
+
+		console.log({ raw_cbor })
+
+		const token = cbor.decode(raw_cbor);
+
+		// See https://github.com/netnexus/node-cborwebtoken/blob/efa5790a639f34d41c3210c578325a43a2761aba/src/index.ts#L42
+		const cwt = new Cborwebtoken()
+		cwt.claims["hcert"] = -260
+		const newPayload = cbor.decode(token.value[2]);
+		var payload;
+		if (!(newPayload instanceof Map)) {
+			payload = newPayload;
+		} else {
+			payload = cwt.revertClaims(newPayload);
+		}
+		console.log(JSON.stringify(payload))
+		console.log({ payload, token })
+
+		proof_valid_eu_green_certificate(decoded_data)
+			.then((proof) => {
+				console.log("proof", proof)
+				mintNft(contract, contractOwner, proof)
+			}).catch((err) => {
+				console.log("err:", err)
+			})
+
+	}
+
 	return (
 		<div className="overlay">
 			<div className="container main-section-container connect-page">
@@ -39,10 +87,18 @@ export function MintMainSection({ provider, contract, contractOwner }) {
 					</div>
 					<h1>METAMASK</h1>
 				</div>
-				<button className="main-btn"
-					onClick={() => mintNft(contract, contractOwner)}
-				>MINT NOW</button>
+				{!qrModal &&
+					<button className="main-btn"
+						// onClick={() => mintNft(contract, contractOwner)}
+						onClick={() => setQrModal(true)}
+					>MINT NOW</button>
+				}
+
 			</div>
+			{qrModal &&
+				<QRScanner onScan={(c) => onScan(c)} />
+			}
+
 			<ToastContainer
 				position="bottom-center"
 				autoClose={5000}

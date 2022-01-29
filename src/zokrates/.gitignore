@@ -1,0 +1,3 @@
+# Files the zokrates toolchain creates on some commands, that we do not want in git
+witness
+proof.json
