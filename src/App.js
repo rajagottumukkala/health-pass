@@ -5,12 +5,35 @@ import ConnectWalletPage from "./pages/ConnectWalletPage";
 import MintNftPage from "./pages/MintNftPage";
 import ReadyMintPage from "./pages/ReadyMintPage";
 import CollectionPage from "./pages/CollectionPage";
+import { createClient } from 'urql';
 
+
+
+const graphURL="https://api.studio.thegraph.com/query/960/healthpasstest/0.1.2";
+let query= `
+    query {
+     certificates(first: 5) {
+       id
+       region
+       category
+       country
+     }
+   }    
+`;
+const client = createClient({
+ url: graphURL
+});
 
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(localStorage.getItem("currentAccount"));
 
+  useEffect(()=> { fetchData()},[]);
+
+ async function fetchData() {
+   const response = client.query(query).toPromise();
+   console.log('response: ',response); 
+ }
 
   return (
     <>

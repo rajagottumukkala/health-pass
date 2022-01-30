@@ -13,15 +13,15 @@ contract HealthPass721 is ERC721URIStorage, Ownable {
 
  //We can brainstorm about it
     struct VaccineDetails {
-     string category;
-     string country;
-     string region;
-     string vaccineVendor;
+     string name;
+     string expiration;
+     string certficateType;
+     string certificateDate;
     }
-
+      
   mapping(address => VaccineDetails[]) vaccineDetailsMapping ;
 
-  event CertificateIssued(uint indexed id,VaccineDetails vaccineDetails);
+  event CertificateIssued(uint indexed id,address userAddress,VaccineDetails vaccineDetails);
   string baseURL;
     
 
@@ -55,7 +55,7 @@ contract HealthPass721 is ERC721URIStorage, Ownable {
           
         vaccineDetailsMapping[user].push(vaccineDetails);
 
-        emit CertificateIssued(newItemId,vaccineDetails);
+        emit CertificateIssued(newItemId,user,vaccineDetails);
 
         return newItemId;
     }
