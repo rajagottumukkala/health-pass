@@ -96,7 +96,8 @@ export const mintNft = async (contract, contractOwner, hcert_data, exp_timestamp
     var certData = {
         name: hcert_data['nam']["gn"] + " " + hcert_data['nam']["fn"],
         expiration: exp_timestamp,
-        certficateType: cert_type
+        certficateType: cert_type,
+        certificateDate: ""
     };
 
     try {
@@ -108,7 +109,7 @@ export const mintNft = async (contract, contractOwner, hcert_data, exp_timestamp
         await txn.wait();
 
         // TODO: Redirect properly
-        // window.location = "http://localhost:3000/collection"
+        window.location = "http://localhost:3000/collection"
     } catch (error) {
         console.log(error);
     }

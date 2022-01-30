@@ -23,13 +23,13 @@ function App() {
             <ConnectWalletPage currentAccount={currentAccount} setCurrentAccount={setCurrentAccount} />
           </Route>
           <Route exact path="/mint">
-            <MintNftPage />
+            <ConnectWalletPage currentAccount={currentAccount} setCurrentAccount={setCurrentAccount} />
           </Route>
           <Route exact path="/ready-mint">
             <ReadyMintPage />
           </Route>
           <Route exact path="/collection">
-            <CollectionPage />
+            <CollectionPage currentAccount={currentAccount} setCurrentAccount={setCurrentAccount} />
           </Route>
           <Route>
             <Redirect to="/" />

@@ -1,10 +1,15 @@
 import DarkNavBar from "../components/NavBar/DarkNavBar";
 import MainSection from "../components/CollectionPage/MainSection";
 
-function CollectionPage() {
+function CollectionPage(props) {
 	return (
 		<>
-			<DarkNavBar text="0x4dec...f642" textBtn="LOGOUT" />
+			{props.currentAccount &&
+				<DarkNavBar text={props.currentAccount} textBtn="BACK" btnUrl="/" textBtn2="LOGOUT" btUrl2="/" setCurrentAccount={props.setCurrentAccount} currentAccount={props.currentAccount} />
+			}
+			{!props.currentAccount &&
+				<DarkNavBar text="LOGIN" textBtn="BACK" btnUrl="/" textBtn2="LOGOUT" btUrl2="/" setCurrentAccount={props.setCurrentAccount} currentAccount={props.currentAccount} />
+			}
 			<MainSection />
 		</>
 	);
