@@ -80,13 +80,25 @@ export const getTokenCount = async (contract) => {
     }
 };
 
-export const mintNft = async (contract, contractOwner, decoded_data) => {
-    let cert_type = Object.keys(decoded_data['hcert'][0][1])[0]
+export const mintNft = async (contract, contractOwner, hcert_data, exp_timestamp) => {
+    var cert_type;
+    let keys = Object.keys(hcert_data);
+    if (keys.indexOf("v") !== -1) {
+        cert_type = "vaccinated";
+    } else if (keys.indexOf("t") !== -1) {
+        cert_type = "tested";
+    } else if (keys.indexOf("r") !== -1) {
+        cert_type = "recovered";
+    } else {
+        cert_type = "unknown";
+    }
+
     var certData = {
-        name: decoded_data['hcert'][0][1]['nam']["gn"] + " " + decoded_data['hcert'][0][1]['nam']["fn"],
-        expiration: decoded_data['exp'],
-        certficateType: cert_type == "v" ? "vaccinated" : cert_type == "t" ? "tested" : "recovered"
+        name: hcert_data['nam']["gn"] + " " + hcert_data['nam']["fn"],
+        expiration: exp_timestamp,
+        certficateType: cert_type
     };
+
     try {
         if (!contract) {
             return;
@@ -94,6 +106,9 @@ export const mintNft = async (contract, contractOwner, decoded_data) => {
 
         const txn = await contract.awardCertificate(contractOwner, certData);
         await txn.wait();
+
+        // TODO: Redirect properly
+        // window.location = "http://localhost:3000/collection"
     } catch (error) {
         console.log(error);
     }

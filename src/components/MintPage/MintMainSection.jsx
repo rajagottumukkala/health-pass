@@ -67,10 +67,10 @@ export function MintMainSection({ provider, contract, contractOwner, currentAcco
 		console.log(JSON.stringify(payload))
 		console.log({ payload, token })
 
-		proof_valid_eu_green_certificate(decoded_data)
+		proof_valid_eu_green_certificate(payload)
 			.then((proof) => {
 				console.log("proof", proof)
-				mintNft(contract, contractOwner, decoded_data)
+				mintNft(contract, contractOwner, payload["hcert"].get(1), payload["exp"])
 			}).catch((err) => {
 				console.log("err:", err)
 			})
