@@ -65,12 +65,10 @@ export function MintMainSection({ provider, contract, contractOwner, currentAcco
 			payload = cwt.revertClaims(newPayload);
 		}
 		console.log(JSON.stringify(payload))
-		console.log({ payload, token })
 
 		proof_valid_eu_green_certificate(payload)
 			.then((proof) => {
-				console.log("proof", proof)
-				mintNft(contract, contractOwner, payload["hcert"].get(1), payload["exp"].toString())
+				mintNft(contract, currentAccount, payload["hcert"].get(1), payload["exp"].toString())
 			}).catch((err) => {
 				console.log("err:", err)
 			})

@@ -80,7 +80,9 @@ export const getTokenCount = async (contract) => {
     }
 };
 
-export const mintNft = async (contract, contractOwner, hcert_data, exp_timestamp) => {
+export const mintNft = async (contract, currentAccount, hcert_data, exp_timestamp) => {
+    // console.log("contractOwner", contractOwner)
+    // console.log("currentAccount", currentAccount)
     var cert_type;
     let keys = Object.keys(hcert_data);
     if (keys.indexOf("v") !== -1) {
@@ -105,7 +107,7 @@ export const mintNft = async (contract, contractOwner, hcert_data, exp_timestamp
             return;
         }
 
-        const txn = await contract.awardCertificate(contractOwner, certData);
+        const txn = await contract.awardCertificate(currentAccount, certData);
         await txn.wait();
 
         // TODO: Redirect properly

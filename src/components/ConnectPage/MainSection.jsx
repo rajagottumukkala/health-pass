@@ -86,11 +86,11 @@ function MainSection(props) {
 
 
 					<NFTMain
-						// contractOwner={contractOwner}
-						// currentAccount={props.currentAccount}
-						// provider={provider}
-						// contract={contract}
-						{...{ contractOwner, provider, contract }}
+						contractOwner={contractOwner}
+						currentAccount={props.currentAccount}
+						provider={provider}
+						contract={contract}
+					// {...{ contractOwner, provider, contract }}
 					/>
 
 				</>}
