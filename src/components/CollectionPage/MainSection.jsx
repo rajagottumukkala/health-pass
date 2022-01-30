@@ -28,7 +28,7 @@ function MainSection(props) {
 		url: graphURL
 	});
 
-	useEffect(() => { fetchData() }, []);
+	useEffect(() => { fetchData() }, [props.currentAccount]);
 
 	async function fetchData() {
 		const response = client.query(query).toPromise().then((data) => {
