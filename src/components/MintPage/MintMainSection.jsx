@@ -10,7 +10,7 @@ import QuestionMark from "../../assets/QuestionMark.png"
 import QRScanner from "../QRScanner/QRScanner"
 import proof_valid_eu_green_certificate from '../../zokrates_green_certificate';
 
-export function MintMainSection({ provider, contract, contractOwner }) {
+export function MintMainSection({ provider, contract, contractOwner, currentAccount }) {
 	const [qrModal, setQrModal] = useState(false);
 
 	useEffect(() => {
@@ -70,7 +70,7 @@ export function MintMainSection({ provider, contract, contractOwner }) {
 		proof_valid_eu_green_certificate(decoded_data)
 			.then((proof) => {
 				console.log("proof", proof)
-				mintNft(contract, contractOwner, proof)
+				mintNft(contract, contractOwner, decoded_data)
 			}).catch((err) => {
 				console.log("err:", err)
 			})
@@ -78,39 +78,52 @@ export function MintMainSection({ provider, contract, contractOwner }) {
 	}
 
 	return (
-		<div className="overlay">
-			<div className="container main-section-container connect-page">
-				<div>
-					<div className="rule-question">
-						<p>02. MINT YOUR HEALTHPASS NFT</p>
-						<img src={QuestionMark} alt="" />
-					</div>
-					<h1>METAMASK</h1>
+		<>
+			<div className="overlay">
+
+				<div className="container main-section-container connect-page">
+					{!qrModal &&
+						<>
+							<div>
+								<div className="rule-question">
+									<p>02. MINT YOUR HEALTHPASS NFT</p>
+									<img src={QuestionMark} alt="" />
+								</div>
+								<h1>METAMASK</h1>
+							</div>
+
+							<button className="main-btn"
+								onClick={() => setQrModal(true)}
+							>MINT NOW</button>
+						</>
+					}
+					{qrModal &&
+						<>
+							<div>
+								<div className="rule-question">
+									<p>03. Present your Vaccination Certificate</p>
+								</div>
+								<h1>Scan the QR Code!</h1>
+							</div>
+							<QRScanner onScan={(c) => onScan(c)} />
+						</>
+					}
 				</div>
-				{!qrModal &&
-					<button className="main-btn"
-						// onClick={() => mintNft(contract, contractOwner)}
-						onClick={() => setQrModal(true)}
-					>MINT NOW</button>
-				}
 
+
+				<ToastContainer
+					position="bottom-center"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+				/>
 			</div>
-			{qrModal &&
-				<QRScanner onScan={(c) => onScan(c)} />
-			}
-
-			<ToastContainer
-				position="bottom-center"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-			/>
-		</div>
+		</>
 	);
 }
 

@@ -41,6 +41,7 @@ export const checkIfWalletIsConnected = async (setCurrentAccount) => {
         if (accounts.length !== 0) {
             const account = accounts[0];
             setCurrentAccount(account.toLowerCase())
+            localStorage.setItem("currentAccount", accounts[0].toLowerCase());
         }
     } catch (error) {
         console.log(error);
@@ -59,6 +60,7 @@ export const connectWallet = async (setCurrentAccount) => {
         const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
         setCurrentAccount(accounts[0].toLowerCase());
+        localStorage.setItem("currentAccount", accounts[0].toLowerCase());
 
     } catch (error) {
         console.log(error)
@@ -78,19 +80,19 @@ export const getTokenCount = async (contract) => {
     }
 };
 
-export const mintNft = async (contract, contractOwner, proof) => {
-    var dummyCertData = {
-        category: "AA",
-        country: "Germany",
-        region: "EU",
-        vaccineVendor: "Pfizer"
+export const mintNft = async (contract, contractOwner, decoded_data) => {
+    let cert_type = Object.keys(decoded_data['hcert'][0][1])[0]
+    var certData = {
+        name: decoded_data['hcert'][0][1]['nam']["gn"] + " " + decoded_data['hcert'][0][1]['nam']["fn"],
+        expiration: decoded_data['exp'],
+        certficateType: cert_type == "v" ? "vaccinated" : cert_type == "t" ? "tested" : "recovered"
     };
     try {
         if (!contract) {
             return;
         }
 
-        const txn = await contract.awardCertificate(contractOwner, dummyCertData);
+        const txn = await contract.awardCertificate(contractOwner, certData);
         await txn.wait();
     } catch (error) {
         console.log(error);

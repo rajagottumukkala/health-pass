@@ -16,7 +16,7 @@ import { MintMainSection as NFTMain } from "../MintPage/MintMainSection"
 function MainSection(props) {
 
 	const [contractOwner, setContractOwner] = useState("");
-	const [currentAccount, setCurrentAccount] = useState("");
+	// const [currentAccount, setCurrentAccount] = useState(localStorage.getItem("currentAccount"));
 	const [provider, setProvider] = useState(null);
 	const [contract, setContract] = useState(null);
 
@@ -24,13 +24,14 @@ function MainSection(props) {
 	const contractABI = abiJson.abi;
 
 	useEffect(() => {
-		checkIfWalletIsConnected(setCurrentAccount);
+		checkIfWalletIsConnected(props.setCurrentAccount);
 		updateProviderAndContract(address, contractABI, setProvider, setContract);
 	}, []);
 
 	useEffect(() => {
-		getContractOwner(setContractOwner);
-	}, [currentAccount]);
+		if (props.currentAccount)
+			getContractOwner(setContractOwner);
+	}, [props.currentAccount]);
 
 	const getContractOwner = async (setContractOwner) => {
 		try {
@@ -50,44 +51,51 @@ function MainSection(props) {
 
 	const isOwner =
 		contractOwner !== "" &&
-		contractOwner.toLowerCase() === currentAccount.toLowerCase();
+		contractOwner.toLowerCase() === props.currentAccount.toLowerCase();
 
-	const isMetamaskConnected = !!currentAccount;
+	const isMetamaskConnected = !!props.currentAccount;
 	return (
 
 
+		<>
+			{!props.currentAccount &&
+				<>
 
-		<div className="overlay">
-			<div className="container main-section-container connect-page">
-				{!currentAccount &&
-					<>
-
-						<div>
-							<div className="rule-question">
-								<p>01. CONNECT YOUR WALLET</p>
-								<img src={QuestionMark} alt="" />
+					<div className="overlay">
+						<div className="container main-section-container connect-page">
+							<div>
+								<div className="rule-question">
+									<p>01. CONNECT YOUR WALLET</p>
+									<img src={QuestionMark} alt="" />
+								</div>
+								<h1>METAMASK</h1>
 							</div>
-							<h1>METAMASK</h1>
+							{/* {isMetamaskConnected && <Button variant="outlined" color="warning" onClick={() => setprops.currentAccount("")}>Disconnect</Button>} */}
+							{!isMetamaskConnected &&
+								<button className="main-btn"
+									onClick={() => connectWallet(props.setCurrentAccount)}
+								>CONNECT NOW</button>
+							}
 						</div>
-						{isMetamaskConnected && <Button variant="outlined" color="warning" onClick={() => setCurrentAccount("")}>Disconnect</Button>}
-						{!isMetamaskConnected &&
-							<button className="main-btn"
-								onClick={() => connectWallet(setCurrentAccount)}
-							>CONNECT NOW</button>
-						}
-					</>
-				}
+					</div>
+				</>
+			}
 
-				{currentAccount &&
-					<>
+			{props.currentAccount &&
+				<>
 
 
-						<NFTMain {...{ contractOwner, currentAccount, provider, contract }} />
+					<NFTMain
+						// contractOwner={contractOwner}
+						// currentAccount={props.currentAccount}
+						// provider={provider}
+						// contract={contract}
+						{...{ contractOwner, provider, contract }}
+					/>
 
-					</>}
+				</>}
 
-			</div>
-		</div>
+		</>
 	);
 }
 

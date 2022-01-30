@@ -9,35 +9,35 @@ import CollectionPage from "./pages/CollectionPage";
 
 
 function App() {
-
+  const [currentAccount, setCurrentAccount] = useState(localStorage.getItem("currentAccount"));
 
 
   return (
     <>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-        <Route exact path="/connect">
-          <ConnectWalletPage />
-        </Route>
-        <Route exact path="/mint">
-          <MintNftPage />
-        </Route>
-        <Route exact path="/ready-mint">
-          <ReadyMintPage />
-        </Route>
-        <Route exact path="/collection">
-          <CollectionPage />
-        </Route>
-        <Route>
-          <Redirect to="/" />
-        </Route>
-      </Switch>
-    </Router>
-		</>
-  
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route exact path="/connect">
+            <ConnectWalletPage currentAccount={currentAccount} setCurrentAccount={setCurrentAccount} />
+          </Route>
+          <Route exact path="/mint">
+            <MintNftPage />
+          </Route>
+          <Route exact path="/ready-mint">
+            <ReadyMintPage />
+          </Route>
+          <Route exact path="/collection">
+            <CollectionPage />
+          </Route>
+          <Route>
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      </Router>
+    </>
+
   );
 }
 
