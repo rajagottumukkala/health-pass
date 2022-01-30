@@ -9,9 +9,13 @@ import cbor from "cbor";
 import QuestionMark from "../../assets/QuestionMark.png"
 import QRScanner from "../QRScanner/QRScanner"
 import proof_valid_eu_green_certificate from '../../zokrates_green_certificate';
+import { css } from "@emotion/react";
+import RingLoader from "react-spinners/RingLoader";
+import { load } from "dotenv";
 
 export function MintMainSection({ provider, contract, contractOwner, currentAccount }) {
 	const [qrModal, setQrModal] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		if (!contract) {
@@ -66,6 +70,8 @@ export function MintMainSection({ provider, contract, contractOwner, currentAcco
 		}
 		console.log(JSON.stringify(payload))
 
+		setLoading(true);
+
 		proof_valid_eu_green_certificate(payload)
 			.then((proof) => {
 				mintNft(contract, currentAccount, payload["hcert"].get(1), payload["exp"].toString())
@@ -75,12 +81,22 @@ export function MintMainSection({ provider, contract, contractOwner, currentAcco
 
 	}
 
+	const override = css`
+		display: block;
+		margin: 0 auto;
+		border-color: #4F5E8D;
+		`;
+
 	return (
 		<>
 			<div className="overlay">
 
 				<div className="container main-section-container connect-page">
-					{!qrModal &&
+					{loading &&
+						<>
+							<RingLoader color="#4F5E8D" loading={loading} css={override} size={200} />
+						</>}
+					{!loading && !qrModal &&
 						<>
 							<div>
 								<div className="rule-question">
@@ -95,7 +111,7 @@ export function MintMainSection({ provider, contract, contractOwner, currentAcco
 							>MINT NOW</button>
 						</>
 					}
-					{qrModal &&
+					{!loading && qrModal &&
 						<>
 							<div>
 								<div className="rule-question">

@@ -18,9 +18,8 @@ class QRScanner extends React.Component {
             <Cameras>
                 {cameras => (
                     <>
-                        {/* <h1>Scan the code!</h1> */}
                         <Scanner camera={cameras[0]} onScan={(c) => this.handleScan(c)}>
-                            <video style={{ width: 400, height: 400 }} />
+                            <video style={{ width: 400, height: 300 }} />
                         </Scanner>
                     </>
                 )}

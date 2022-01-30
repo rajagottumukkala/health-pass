@@ -110,8 +110,8 @@ export const mintNft = async (contract, currentAccount, hcert_data, exp_timestam
         const txn = await contract.awardCertificate(currentAccount, certData);
         await txn.wait();
 
-        // TODO: Redirect properly
-        window.location = "http://localhost:3000/collection"
+        // Navigate to NFT collection
+		window.location.href = "/collection"
     } catch (error) {
         console.log(error);
     }
